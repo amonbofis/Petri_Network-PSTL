@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class Transition {
     private int nbJetonMax; 
     private int numId; 

@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class Jeton {
     private int numid;
     private Place position;

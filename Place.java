@@ -1,8 +1,6 @@
-import java.util.ArrayList;
-
 public class Place {
     private int nbJetonMax;
-    private int nbJeton;
+    private int nbJeton; //should be replace by ArrayList<Jeton> 
     private int numId;
     private MatriceEntree transEntree;
     private MatriceSortie transSortie;
