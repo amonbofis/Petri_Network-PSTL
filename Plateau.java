@@ -102,10 +102,15 @@ public class Plateau {
 
                         //delete the jetons that are consummed in the transition
                         places.get(i).deleteJeton(matE[i][j]);
+                        boolean updated = false;
                         for(int b =0; b<matS.length; b++){
                             if(matS[b][j] != 0){      
                                 places.get(b).setNbJeton(matS[b][j]);
+                                updated = true;
                             }                                
+                        }
+                        if(updated){
+                            return; // this is to do only one transition by tour, for now the first avaible
                         }
                     }
                 }

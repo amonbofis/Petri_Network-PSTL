@@ -32,7 +32,6 @@ public class Simulation{
         for(int a=0; a<places.size(); a++){
             for(int b=0; b<transitions.size(); b++ ){
                 if(a == 0 && b==0){
-                    System.out.print("azertyuiopqsdfghjklmwxcvbn");
                     matE[a][b] = 1;
                     matS[a][b] = 0;
                 }
@@ -69,7 +68,7 @@ public class Simulation{
 
         Plateau petriNetwork = new Plateau(places, transitions, null, matE, matS);
 
-        petriNetwork.showMatEntree();
+        petriNetwork.showMatSortie();
         petriNetwork.showPlateau();
 
         int tour = 0;
