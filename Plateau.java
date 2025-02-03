@@ -1,40 +1,38 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Scanner;
+import java.util.Set;
 
 public class Plateau {
     ArrayList<Place> places;
     ArrayList<Transition> transitions;
     ArrayList<Jeton> jetons;
-    // MatriceEntree matE;
-    // MatriceSortie matS;
-    int[][] matE;
-    int[][] matS;
 
-    public Plateau(ArrayList<Place> places, 
-                    ArrayList<Transition> transitions,
-                    ArrayList<Jeton> jetons,
-                    int[][] matE,
-                    int[][] matS){
-                        this.places = places;
-                        this.transitions = transitions;
-                        this.jetons = jetons;
-                        this.matE= matE;
-                        this.matS = matS;
+    public Plateau(ArrayList<Place> places,
+            ArrayList<Transition> transitions,
+            ArrayList<Jeton> jetons) {
+        this.places = places;
+        this.transitions = transitions;
+        this.jetons = jetons;
     }
 
-    public void showPlateau(){
+    public void showPlateau() {
         int i = 0;
         System.out.print("(");
-        for(Place p: places){
-            if(i != (places.size() -1)){
+        for (Place p : places) {
+            if (i != (places.size() - 1)) {
                 System.out.print(p.getNbJeton() + ", ");
-            }else{
+            } else {
                 System.out.print(p.getNbJeton());
-            }  
-            i++;  
+            }
+            i++;
         }
         System.out.print(")\n");
     }
-
 
     // Getters
     public ArrayList<Place> getPlaces() {
@@ -47,14 +45,6 @@ public class Plateau {
 
     public ArrayList<Jeton> getJetons() {
         return jetons;
-    }
-
-    public int[][] getMatE() {
-        return matE;
-    }
-
-    public int[][] getMatS() {
-        return matS;
     }
 
     // Setters
@@ -70,60 +60,92 @@ public class Plateau {
         this.jetons = jetons;
     }
 
-    public void showMatEntree(){
-        for(int a=0; a<places.size(); a++){
-            System.out.print("(");
-            for(int c=0; c<transitions.size(); c++ ){
-                System.out.print(matE[a][c] +" ");
-            }
-            System.out.println(")");
-        }
+    public void activateTransition(Transition transition) {
+        for (Place place : transition.getPlacesEntrees())
+            place.setNbJeton(place.getNbJeton() - 1);
+        for (Place place : transition.getPlacesSorties())
+            place.setNbJeton(place.getNbJeton() + 1);
     }
 
-    public void showMatSortie(){
-        for(int a=0; a<places.size(); a++){
-            System.out.print("(");
-            for(int c=0; c<transitions.size(); c++ ){
-                System.out.print(matS[a][c] +" ");
-            }
-            System.out.println(")");
-        }
-    }
+    public Set<Transition> update() {
 
-    public void update() {
-        
-        for(int i =0; i<matE.length; i++){
-            for(int j =0; j<matE[1].length; j++){
-                //check transition that exists in the network
-                if(matE[i][j] != 0){
+        Set<Transition> transitionsPossibles = new HashSet<>();
 
-                    // check if there are enough jeton in the place to start the transition
-                    if(places.get(i).getNbJeton() >= matE[i][j]){
+        for (Place place : places) {
 
-                        //delete the jetons that are consummed in the transition
-                        places.get(i).deleteJeton(matE[i][j]);
-                        boolean updated = false;
-                        for(int b =0; b<matS.length; b++){
-                            if(matS[b][j] != 0){      
-                                places.get(b).setNbJeton(matS[b][j]);
-                                updated = true;
-                            }                                
-                        }
-                        if(updated){
-                            return; // this is to do only one transition by tour, for now the first avaible
+            if (place.getNbJeton() > 0) {
+                for (Transition tr_sortie : place.getTransSorties()) {
+
+                    boolean appendTrans = true;
+                    for (Place place_entree : tr_sortie.getPlacesEntrees()) {
+
+                        if (place_entree.getNbJeton() == 0) {
+                            appendTrans = false;
+                            break;
                         }
                     }
+
+                    if (appendTrans)
+                        transitionsPossibles.add(tr_sortie);
                 }
             }
         }
+
+        return transitionsPossibles;
     }
 
-    /*public void setMatE(MatriceEntree matE) {
-        this.matE = matE;
+    public void randomTransition(int maxTransitions) {
+        Random random = new Random();
+
+        for (int i = 0; i < maxTransitions; i++) {
+            Set<Transition> transitionsPossibles = update();
+            System.out.print("Transition possible : ");
+
+            for (Transition t : transitionsPossibles)
+                System.out.print("t" + t.numId() + " ");
+
+            System.out.println();
+
+            if (transitionsPossibles.isEmpty()) {
+                System.out.println("Aucune transition possible.");
+                break;
+            }
+
+            List<Transition> listeTransitions = new ArrayList<>(transitionsPossibles);
+            Transition transitionChoisie = listeTransitions.get(random.nextInt(listeTransitions.size()));
+
+            System.out.println("Transition choisie : t" + transitionChoisie.numId());
+
+            activateTransition(transitionChoisie);
+            showPlateau();
+        }
     }
 
-    public void setMatS(MatriceSortie matS) {
-        this.matS = matS;
-    }*/
+    // Fonction pour afficher les transitions possibles et permettre le choix
+    public void manualTransition(Scanner scanner) {
+        Set<Transition> transitionsPossibles = update();
+        if (transitionsPossibles.isEmpty()) {
+            System.out.println("Aucune transition possible.");
+            return;
+        }
+
+        System.out.println("Transitions possibles :");
+        List<Transition> listeTransitions = new ArrayList<>(transitionsPossibles);
+
+        for (int i = 0; i < listeTransitions.size(); i++)
+            System.out.println((i + 1) + ". Transition " + listeTransitions.get(i).numId());
+
+        System.out.print("Choisissez une transition : ");
+        int choix = scanner.nextInt();
+
+        if (choix < 1 || choix > listeTransitions.size()) {
+            System.out.println("Choix invalide.");
+            return;
+        }
+
+        Transition transitionChoisie = listeTransitions.get(choix - 1);
+        activateTransition(transitionChoisie);
+        showPlateau();
+    }
 
 }

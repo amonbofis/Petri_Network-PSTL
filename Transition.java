@@ -1,51 +1,29 @@
+import java.util.ArrayList;
+
 public class Transition {
-    private int nbJetonMax; 
-    private int numId; 
-    private MatriceEntree placesEntree; 
-    private MatriceSortie placesSortie; 
-    
+    private int nbJetonMax;
+    private int numId;
+    private ArrayList<Place> placeEntre;
+    private ArrayList<Place> placeSortie;
+
     // Constructor
-    public Transition(int nbJetonMax, int numId) {
+    public Transition(int nbJetonMax, int numId, ArrayList<Place> entree, ArrayList<Place> sortie) {
         this.nbJetonMax = nbJetonMax;
         this.numId = numId;
-        this.placesEntree = new MatriceEntree();
-        this.placesSortie = new MatriceSortie();
+        this.placeEntre = entree;
+        this.placeSortie = sortie;
     }
 
-    public Transition createTrans(int nbJetonMax, int numId){
-        return new Transition(nbJetonMax, numId);
-    }
-
-    // Getters and Setters
-    public int getNbJetonMax() {
-        return nbJetonMax;
-    }
-
-    public void setNbJetonMax(int nbJetonMax) {
-        this.nbJetonMax = nbJetonMax;
-    }
-
-    public int getNumId() {
+    public int numId() {
         return numId;
     }
 
-    public void setNumId(int numId) {
-        this.numId = numId;
+    public ArrayList<Place> getPlacesEntrees() {
+        return placeEntre;
     }
 
-    public MatriceEntree getPlacesEntree() {
-        return placesEntree;
+    public ArrayList<Place> getPlacesSorties() {
+        return placeSortie;
     }
 
-    public void setPlacesEntree(MatriceEntree placesEntree) {
-        this.placesEntree = placesEntree;
-    }
-
-    public MatriceSortie getPlacesSortie() {
-        return placesSortie;
-    }
-
-    public void setPlacesSortie(MatriceSortie placesSortie) {
-        this.placesSortie = placesSortie;
-    }
 }

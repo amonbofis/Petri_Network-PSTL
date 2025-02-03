@@ -1,67 +1,35 @@
+import java.util.ArrayList;
+
 public class Place {
     private int nbJetonMax;
-    private int nbJeton; //should be replace by ArrayList<Jeton> 
+    private int nbJeton; // should be replace by ArrayList<Jeton>
     private int numId;
-    private MatriceEntree transEntree;
-    private MatriceSortie transSortie;
-
+    private ArrayList<Transition> transEntrees;
+    private ArrayList<Transition> transSorties;
 
     // Constructor
-    public Place(int nbJetonMax, int nbJeton, int numId) {
+    public Place(int nbJetonMax, int nbJeton, int numId,
+            ArrayList<Transition> transEntrees, ArrayList<Transition> transSorties) {
         this.nbJetonMax = nbJetonMax;
         this.nbJeton = nbJeton;
         this.numId = numId;
-        this.transEntree = new MatriceEntree();
-        this.transSortie = new MatriceSortie();
+        this.transEntrees = transEntrees;
+        this.transSorties = transSorties;
     }
-
-    public Place createPlace(int nbJetonMax, int nbJeton, int numId){
-        return new Place(nbJetonMax, nbJeton, numId);
-    }
-
-    // Getters and Setters
 
     public int getNbJeton() {
         return nbJeton;
     }
 
     public void setNbJeton(int nbJeton) {
-        this.nbJeton += nbJeton;
+        this.nbJeton = nbJeton;
     }
 
-    public void deleteJeton(int nbJeton) {
-        this.nbJeton -= nbJeton;
+    public ArrayList<Transition> getTransEntrees() {
+        return transEntrees;
     }
 
-    public int getNbJetonMax() {
-        return nbJetonMax;
-    }
-
-    public void setNbJetonMax(int nbJetonMax) {
-        this.nbJetonMax = nbJetonMax;
-    }
-
-    public int getNumId() {
-        return numId;
-    }
-
-    public void setNumId(int numId) {
-        this.numId = numId;
-    }
-
-    public MatriceEntree getTransEntree() {
-        return transEntree;
-    }
-
-    public void setTransEntree(MatriceEntree transEntree) {
-        this.transEntree = transEntree;
-    }
-
-    public MatriceSortie getTransSortie() {
-        return transSortie;
-    }
-
-    public void setTransSortie(MatriceSortie transSortie) {
-        this.transSortie = transSortie;
+    public ArrayList<Transition> getTransSorties() {
+        return transSorties;
     }
 }
