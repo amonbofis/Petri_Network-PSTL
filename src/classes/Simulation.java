@@ -1,13 +1,23 @@
 package classes;
 import java.util.ArrayList;
 
+import interfaces.ISimulation;
+
 // compile with : javac --release 17 *.java
 //execute with : java Simulation
 
-public class Simulation{
-    public static void main(String[] args){
+public class Simulation implements ISimulation {
+	
+	public Simulation() {}
+	
+	@Override
+	public Plateau createNetwork(ArrayList<Place> places, ArrayList<Transition> transitions, ArrayList<Jeton> jetons) {
+		return new Plateau(places,transitions,jetons);
+	}
+	
+    /*public static void main(String[] args){
 
-        /*System.out.println("in the main");
+        System.out.println("in the main");
         ArrayList<Place> places = new ArrayList<Place>();
         ArrayList<Transition> transitions = new ArrayList<Transition>();
         int i = 0, j=0;
@@ -78,6 +88,6 @@ public class Simulation{
             petriNetwork.update();
             petriNetwork.showPlateau();
             tour++;
-        }*/
-    }
+        }
+    }*/
 }
