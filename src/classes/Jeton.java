@@ -1,5 +1,8 @@
-package test;
-public class Jeton {
+package classes;
+
+import interfaces.IJeton;
+
+public class Jeton implements IJeton {
     private int numid;
     private Place position;
 
@@ -7,11 +10,13 @@ public class Jeton {
         this.numid = num;
         this.position = position;
     }
-
+    
+    @Override
     public int getNumid(){
         return this.numid;
     }
-
+    
+    @Override
     public Place getPosition(){
         return this.position;
     }

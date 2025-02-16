@@ -1,4 +1,4 @@
-package test;
+package classes;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -8,7 +8,9 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 
-public class Plateau {
+import interfaces.IPlateau;
+
+public class Plateau implements IPlateau {
     ArrayList<Place> places;
     ArrayList<Transition> transitions;
     ArrayList<Jeton> jetons;
@@ -21,6 +23,7 @@ public class Plateau {
         this.jetons = jetons;
     }
 
+    @Override
     public void showPlateau() {
         int i = 0;
         System.out.print("(");
@@ -36,31 +39,38 @@ public class Plateau {
     }
 
     // Getters
+    @Override
     public ArrayList<Place> getPlaces() {
         return places;
     }
 
+    @Override
     public ArrayList<Transition> getTransitions() {
         return transitions;
     }
 
+    @Override
     public ArrayList<Jeton> getJetons() {
         return jetons;
     }
 
     // Setters
+    @Override
     public void setPlaces(ArrayList<Place> places) {
         this.places = places;
     }
 
+    @Override
     public void setTransitions(ArrayList<Transition> transitions) {
         this.transitions = transitions;
     }
 
+    @Override
     public void setJetons(ArrayList<Jeton> jetons) {
         this.jetons = jetons;
     }
 
+    @Override
     public void activateTransition(Transition transition) {
         for (Place place : transition.getPlacesEntrees())
             place.setNbJeton(place.getNbJeton() - 1);
@@ -68,6 +78,7 @@ public class Plateau {
             place.setNbJeton(place.getNbJeton() + 1);
     }
 
+    @Override
     public Set<Transition> update() {
 
         Set<Transition> transitionsPossibles = new HashSet<>();
@@ -95,6 +106,7 @@ public class Plateau {
         return transitionsPossibles;
     }
 
+    @Override
     public void randomTransition(int maxTransitions) {
         Random random = new Random();
 
@@ -123,6 +135,7 @@ public class Plateau {
     }
 
     // Fonction pour afficher les transitions possibles et permettre le choix
+    @Override
     public void manualTransition(Scanner scanner) {
         Set<Transition> transitionsPossibles = update();
         if (transitionsPossibles.isEmpty()) {

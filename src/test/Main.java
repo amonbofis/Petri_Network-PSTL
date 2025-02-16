@@ -1,6 +1,10 @@
 package test;
 import java.util.*;
 
+import classes.Place;
+import classes.Plateau;
+import classes.Transition;
+
 public class Main {
     public static void main(String[] args) {
 

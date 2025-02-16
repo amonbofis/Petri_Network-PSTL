@@ -1,7 +1,9 @@
-package test;
+package classes;
 import java.util.ArrayList;
 
-public class Place {
+import interfaces.IPlace;
+
+public class Place implements IPlace {
     private int nbJetonMax;
     private int nbJeton; // should be replace by ArrayList<Jeton>
     private int numId;
@@ -17,19 +19,23 @@ public class Place {
         this.transEntrees = transEntrees;
         this.transSorties = transSorties;
     }
-
+    
+    @Override
     public int getNbJeton() {
         return nbJeton;
     }
 
+    @Override
     public void setNbJeton(int nbJeton) {
         this.nbJeton = nbJeton;
     }
 
+    @Override
     public ArrayList<Transition> getTransEntrees() {
         return transEntrees;
     }
 
+    @Override
     public ArrayList<Transition> getTransSorties() {
         return transSorties;
     }

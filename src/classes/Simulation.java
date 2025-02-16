@@ -1,4 +1,4 @@
-package test;
+package classes;
 import java.util.ArrayList;
 
 // compile with : javac --release 17 *.java
@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Simulation{
     public static void main(String[] args){
 
-        System.out.println("in the main");
+        /*System.out.println("in the main");
         ArrayList<Place> places = new ArrayList<Place>();
         ArrayList<Transition> transitions = new ArrayList<Transition>();
         int i = 0, j=0;
@@ -22,13 +22,13 @@ public class Simulation{
             Transition t = new Transition(1, j);
             transitions.add(t);
             j++;
-        }
+        }*/
 
         /* MatriceEntree matEntree = new MatriceEntree();
         MatriceSortie matSortie = new MatriceSortie();*/
 
         //next part will be handle throught the terminal after
-        int[][] matE = new int[places.size()][transitions.size()];
+        /*int[][] matE = new int[places.size()][transitions.size()];
         int[][] matS = new int[places.size()][transitions.size()];
         for(int a=0; a<places.size(); a++){
             for(int b=0; b<transitions.size(); b++ ){
@@ -78,6 +78,6 @@ public class Simulation{
             petriNetwork.update();
             petriNetwork.showPlateau();
             tour++;
-        }
+        }*/
     }
 }
