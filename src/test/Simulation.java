@@ -1,3 +1,4 @@
+package test;
 import java.util.ArrayList;
 
 // compile with : javac --release 17 *.java

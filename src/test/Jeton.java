@@ -1,3 +1,4 @@
+package test;
 public class Jeton {
     private int numid;
     private Place position;
